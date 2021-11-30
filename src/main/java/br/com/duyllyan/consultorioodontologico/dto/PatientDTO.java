@@ -1,16 +1,15 @@
 package br.com.duyllyan.consultorioodontologico.dto;
 
-import br.com.duyllyan.consultorioodontologico.entities.Address;
-import br.com.duyllyan.consultorioodontologico.entities.Dentist;
 import br.com.duyllyan.consultorioodontologico.entities.Patient;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Getter
 @Setter
-public class PatientDTO {
+public class PatientDTO implements Serializable {
 
     private Long id;
     private String name;

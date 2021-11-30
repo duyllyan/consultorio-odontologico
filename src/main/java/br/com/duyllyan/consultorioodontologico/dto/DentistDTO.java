@@ -1,16 +1,14 @@
 package br.com.duyllyan.consultorioodontologico.dto;
 
 import br.com.duyllyan.consultorioodontologico.entities.Dentist;
-import br.com.duyllyan.consultorioodontologico.entities.Patient;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.io.Serializable;
 
 @Getter
 @Setter
-public class DentistDTO {
+public class DentistDTO implements Serializable {
 
     private Long id;
     private Integer registrationNumber;

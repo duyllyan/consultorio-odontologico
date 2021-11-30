@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Setter
 @Entity
 @Table(name = "tb_patient")
-public class Patient {
+public class Patient implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

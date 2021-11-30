@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
 @Getter
 @Entity
 @Table(name = "tb_dentist")
-public class Dentist {
+public class Dentist implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

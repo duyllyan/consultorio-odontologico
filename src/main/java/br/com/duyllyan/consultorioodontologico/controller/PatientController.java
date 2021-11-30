@@ -4,10 +4,10 @@ import br.com.duyllyan.consultorioodontologico.dto.PatientDTO;
 import br.com.duyllyan.consultorioodontologico.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -21,5 +21,18 @@ public class PatientController {
     public ResponseEntity<List<PatientDTO>> findAll() {
         List<PatientDTO> list = service.findAll();
         return ResponseEntity.ok().body(list);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PatientDTO> findById(@PathVariable Long id) {
+        PatientDTO patient = service.findById(id);
+        return ResponseEntity.ok().body(patient);
+    }
+
+    @PostMapping
+    public ResponseEntity<PatientDTO> save (@RequestBody PatientDTO patient) {
+        PatientDTO patientDTO = service.save(patient);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(patientDTO.getId()).toUri();
+        return ResponseEntity.created(uri).body(patientDTO);
     }
 }
