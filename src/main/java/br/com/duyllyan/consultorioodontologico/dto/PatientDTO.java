@@ -39,7 +39,7 @@ public class PatientDTO implements Serializable {
         surname = patient.getSurname();
         rg = patient.getRg();
         registrationDate = patient.getRegistrationDate();
-        address = new AddressDTO(patient.getAddress());
-        dentist = new DentistDTO(patient.getDentist());
+        address = patient.getAddress() != null ? new AddressDTO(patient.getAddress()) : null;
+        dentist = patient.getDentist() != null ? new DentistDTO(patient.getDentist()) : null;
     }
 }
