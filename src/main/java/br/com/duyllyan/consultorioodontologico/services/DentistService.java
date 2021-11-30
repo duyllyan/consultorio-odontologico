@@ -28,5 +28,30 @@ public class DentistService {
         return dentists.stream().map(DentistDTO::new).collect(Collectors.toList());
     }
 
+    @Transactional
+    public DentistDTO save(DentistDTO dentistDTO) {
+        Dentist dentist = new Dentist(
+                null,
+                dentistDTO.getRegistrationNumber(),
+                dentistDTO.getName(),
+                dentistDTO.getSurname()
+        );
+        dentist = repository.save(dentist);
+        return new DentistDTO(dentist);
+    }
 
+    @Transactional
+    public DentistDTO update(Long id, DentistDTO dentistDTO) {
+        Dentist dentist = repository.findById(id).get();
+        dentist.setRegistrationNumber(dentistDTO.getRegistrationNumber());
+        dentist.setName(dentistDTO.getName());
+        dentist.setSurname(dentistDTO.getSurname());
+        dentist = repository.save(dentist);
+        return new DentistDTO(dentist);
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        repository.deleteById(id);
+    }
 }

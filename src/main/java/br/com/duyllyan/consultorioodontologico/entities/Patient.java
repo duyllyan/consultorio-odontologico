@@ -25,7 +25,7 @@ public class Patient implements Serializable {
     @JoinColumn(name = "address_id")
     private Address address;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     @JoinColumn(name = "dentist_id")
     private Dentist dentist;
 

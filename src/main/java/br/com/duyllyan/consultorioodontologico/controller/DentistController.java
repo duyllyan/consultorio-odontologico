@@ -1,6 +1,8 @@
 package br.com.duyllyan.consultorioodontologico.controller;
 
+import br.com.duyllyan.consultorioodontologico.dto.DentistDTO;
 import br.com.duyllyan.consultorioodontologico.dto.PatientDTO;
+import br.com.duyllyan.consultorioodontologico.services.DentistService;
 import br.com.duyllyan.consultorioodontologico.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,35 +13,35 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/patients")
+@RequestMapping("/dentists")
 public class DentistController {
 
     @Autowired
-    private PatientService service;
+    private DentistService service;
 
     @GetMapping
-    public ResponseEntity<List<PatientDTO>> findAll() {
-        List<PatientDTO> list = service.findAll();
+    public ResponseEntity<List<DentistDTO>> findAll() {
+        List<DentistDTO> list = service.findAll();
         return ResponseEntity.ok().body(list);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PatientDTO> findById(@PathVariable Long id) {
-        PatientDTO patient = service.findById(id);
-        return ResponseEntity.ok().body(patient);
+    public ResponseEntity<DentistDTO> findById(@PathVariable Long id) {
+        DentistDTO dentist = service.findById(id);
+        return ResponseEntity.ok().body(dentist);
     }
 
     @PostMapping
-    public ResponseEntity<PatientDTO> save (@RequestBody PatientDTO patient) {
-        PatientDTO patientDTO = service.save(patient);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(patientDTO.getId()).toUri();
-        return ResponseEntity.created(uri).body(patientDTO);
+    public ResponseEntity<DentistDTO> save (@RequestBody DentistDTO patient) {
+        DentistDTO dentistDTO = service.save(patient);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dentistDTO.getId()).toUri();
+        return ResponseEntity.created(uri).body(dentistDTO);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<PatientDTO> update (@PathVariable Long id, @RequestBody PatientDTO patient) {
-        PatientDTO patientDTO = service.update(id, patient);
-        return ResponseEntity.ok().body(patientDTO);
+    public ResponseEntity<DentistDTO> update (@PathVariable Long id, @RequestBody DentistDTO patient) {
+        DentistDTO dentistDTO = service.update(id, patient);
+        return ResponseEntity.ok().body(dentistDTO);
     }
 
     @DeleteMapping("/{id}")
