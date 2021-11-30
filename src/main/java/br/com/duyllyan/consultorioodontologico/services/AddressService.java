@@ -18,4 +18,19 @@ public class AddressService {
         Address address = repository.findById(id).get();
         return new AddressDTO(address);
     }
+
+    @Transactional
+    public AddressDTO save(AddressDTO addressDTO) {
+        Address address = new Address(
+                null,
+                addressDTO.getStreet(),
+                addressDTO.getNumber(),
+                addressDTO.getNeighborhood(),
+                addressDTO.getCity(), 
+                addressDTO.getState(),
+                addressDTO.getCountry(),
+                addressDTO.getZipCode());
+        address = repository.save(address);
+        return new AddressDTO(address);
+    }
 }

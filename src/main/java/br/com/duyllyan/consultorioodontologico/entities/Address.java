@@ -17,19 +17,23 @@ public class Address implements Serializable {
     private Long id;
     private String street;
     private String number;
-    private String district;
+    private String neighborhood;
     private String city;
     private String state;
+    private String country;
+    private String zipCode;
 
     public Address() {
     }
 
-    public Address(Long id, String street, String number, String district, String city, String state) {
+    public Address(Long id, String street, String number, String neighborhood, String city, String state, String country, String zipCode) {
         this.id = id;
         this.street = street;
         this.number = number;
-        this.district = district;
+        this.neighborhood = neighborhood;
         this.city = city;
         this.state = state;
+        this.country = country;
+        this.zipCode = zipCode;
     }
 }
