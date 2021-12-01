@@ -39,6 +39,12 @@ public class PatientService {
         return new PatientDTO(patient);
     }
 
+    @Transactional(readOnly = true)
+    public List<PatientDTO> findByDentistId(Long id) {
+        List<Patient> patients = repository.findByDentistId(id);
+        return patients.stream().map(PatientDTO::new).collect(Collectors.toList());
+    }
+
     @Transactional
     public PatientDTO save(PatientDTO patientDTO) {
         Dentist dentist = null;

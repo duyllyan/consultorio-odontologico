@@ -29,6 +29,12 @@ public class PatientController {
         return ResponseEntity.ok().body(patient);
     }
 
+    @GetMapping("/dentists/{id}")
+    public ResponseEntity<List<PatientDTO>> findByDentistId(@PathVariable Long id) {
+        List<PatientDTO> patients = service.findByDentistId(id);
+        return ResponseEntity.ok().body(patients);
+    }
+
     @PostMapping
     public ResponseEntity<PatientDTO> save (@RequestBody PatientDTO patient) {
         PatientDTO patientDTO = service.save(patient);
