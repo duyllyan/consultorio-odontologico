@@ -1,9 +1,7 @@
 package br.com.duyllyan.consultorioodontologico.controller;
 
 import br.com.duyllyan.consultorioodontologico.dto.DentistDTO;
-import br.com.duyllyan.consultorioodontologico.dto.PatientDTO;
 import br.com.duyllyan.consultorioodontologico.services.DentistService;
-import br.com.duyllyan.consultorioodontologico.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

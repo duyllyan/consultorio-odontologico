@@ -7,6 +7,8 @@ import br.com.duyllyan.consultorioodontologico.entities.Patient;
 import br.com.duyllyan.consultorioodontologico.repositories.AddressRepository;
 import br.com.duyllyan.consultorioodontologico.repositories.DentistRepository;
 import br.com.duyllyan.consultorioodontologico.repositories.PatientRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +19,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class PatientService {
+
+    private static final Logger LOG = LogManager.getLogger(PatientService.class);
 
     @Autowired
     private PatientRepository repository;
@@ -29,24 +33,31 @@ public class PatientService {
 
     @Transactional(readOnly = true)
     public List<PatientDTO> findAll() {
+        LOG.debug("searching all patients");
         List<Patient> patients = repository.findAll();
+        LOG.info("found {} patients", patients.size());
         return patients.stream().map(PatientDTO::new).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
     public PatientDTO findById(Long id) {
+        LOG.debug("searching patient by id {}", id);
         Patient patient = repository.findById(id).get();
+        LOG.info("found patient {}", patient);
         return new PatientDTO(patient);
     }
 
     @Transactional(readOnly = true)
     public List<PatientDTO> findByDentistId(Long id) {
+        LOG.debug("searching patients by dentist id {}", id);
         List<Patient> patients = repository.findByDentistId(id);
+        LOG.info("found {} patients", patients.size());
         return patients.stream().map(PatientDTO::new).collect(Collectors.toList());
     }
 
     @Transactional
     public PatientDTO save(PatientDTO patientDTO) {
+        LOG.debug("saving patient {}", patientDTO.getName());
         Dentist dentist = null;
         Address address = addressRepository.save(new Address(
                     null,
@@ -71,16 +82,20 @@ public class PatientService {
                 address,
                 dentist);
         patient = repository.save(patient);
+        LOG.info("saved patient {}", patient.getName());
         return new PatientDTO(patient);
     }
 
     @Transactional
     public void delete(Long id) {
+        LOG.debug("deleting patient by id {}", id);
         repository.deleteById(id);
+        LOG.info("deleted patient by id {}", id);
     }
 
     @Transactional
     public PatientDTO update(Long id, PatientDTO patientDTO) {
+        LOG.debug("updating patient by id {}", id);
         Patient patient = repository.findById(id).get();
         patient.setName(patientDTO.getName());
         patient.setSurname(patientDTO.getSurname());
@@ -96,6 +111,7 @@ public class PatientService {
         if (patientDTO.getDentist() != null) {
             patient.setDentist(dentistRepository.getById(patientDTO.getDentist().getId()));
         }
+        LOG.info("updated patient {}", patient.getName());
         return new PatientDTO(patient);
     }
 }
